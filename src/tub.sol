@@ -289,11 +289,6 @@ contract SaiTub is DSThing, SaiTubEvents {
         cups[cup].lad = msg.sender;
         emit LogNewCup(msg.sender, cup);
     }
-    function give(bytes32 cup, address guy) public payable note {
-        require(msg.sender == cups[cup].lad);
-        require(guy != address(0));
-        cups[cup].lad = guy;
-    }
 
     function lock(bytes32 cup, uint wad) public payable note {
         require(!off);
@@ -334,6 +329,7 @@ contract SaiTub is DSThing, SaiTubEvents {
         
 
     }
+
     function wipe(bytes32 cup, uint wad) public payable note {
         require(!off);
         
@@ -349,9 +345,7 @@ contract SaiTub is DSThing, SaiTubEvents {
 if (ok && uint(val) != 0) {
     gov.move(msg.sender, pit, wdiv(owe, uint(val)));
 }
-
-
-    }
+ }
 
     function shut(bytes32 cup) public payable note {
         require(!off);
