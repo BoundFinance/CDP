@@ -300,6 +300,13 @@ contract SaiTub is DSThing, SaiTubEvents {
         require(cups[cup].ink == 0 || cups[cup].ink > 0.005 ether);
 
     }
+
+     function give(bytes32 cup, address guy) public payable note {
+        require(msg.sender == cups[cup].lad);
+        require(guy != address(0));
+        cups[cup].lad = guy;
+    }
+
     function free(bytes32 cup, uint wad) public payable note {
         require(msg.sender == cups[cup].lad);
             totalCollateral = sub(totalCollateral, wad);  // decrease total collateral
