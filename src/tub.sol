@@ -290,6 +290,12 @@ contract SaiTub is DSThing, SaiTubEvents {
         emit LogNewCup(msg.sender, cup);
     }
 
+ function give(bytes32 cup, address guy) public payable note {
+        require(msg.sender == cups[cup].lad);
+        require(guy != address(0));
+        cups[cup].lad = guy;
+    }
+
     function lock(bytes32 cup, uint wad) public payable note {
         require(!off);
             totalCollateral = add(totalCollateral, wad);  // decrease total collateral
