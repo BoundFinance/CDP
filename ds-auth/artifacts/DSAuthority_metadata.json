@@ -1,0 +1,75 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "src",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "dst",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes4",
+						"name": "sig",
+						"type": "bytes4"
+					}
+				],
+				"name": "canCall",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ds-auth/auth.sol": "DSAuthority"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ds-auth/auth.sol": {
+			"keccak256": "0x9dd128620ddc1850d4af0a98738cc3d9a7e7797f5862e9eaed0b77659d5e8303",
+			"license": "GNU-3",
+			"urls": [
+				"bzz-raw://22b41f32e304e97a48ecdc1e85962ebbae293c48558f43720d5018394aa7db5c",
+				"dweb:/ipfs/QmPvHxR2SiKCv7a2DzC8Tg44TBdPXtCXmdRnDxGfXvy6qE"
+			]
+		}
+	},
+	"version": 1
+}

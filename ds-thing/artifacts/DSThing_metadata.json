@@ -1,0 +1,187 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": true,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes4",
+						"name": "sig",
+						"type": "bytes4"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "guy",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "foo",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "bar",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "wad",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "fax",
+						"type": "bytes"
+					}
+				],
+				"name": "LogNote",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "authority",
+						"type": "address"
+					}
+				],
+				"name": "LogSetAuthority",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "LogSetOwner",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "authority",
+				"outputs": [
+					{
+						"internalType": "contract DSAuthority",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract DSAuthority",
+						"name": "authority_",
+						"type": "address"
+					}
+				],
+				"name": "setAuthority",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner_",
+						"type": "address"
+					}
+				],
+				"name": "setOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ds-thing/thing.sol": "DSThing"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ds-auth/auth.sol": {
+			"keccak256": "0x36eaeb8175a1d2d9fa707ffc8e563b22e9ba289c2e6791c908ccb13a8c27bdab",
+			"urls": [
+				"bzz-raw://bfd2ac0c1a74fcab40ba597d1554c3dce07dff332930ea2a250d045658da2eeb",
+				"dweb:/ipfs/QmS7VQXvZmAXxq4SLpBrhBqdnUn1L8tSfheYbwpzU9Jrjc"
+			]
+		},
+		"ds-math/math.sol": {
+			"keccak256": "0x8be286cf779d90081f362ad05487073efd6f11e850dfaebb7841493733116463",
+			"urls": [
+				"bzz-raw://6b392a407a80f01dd57046a0f32d0625f4d60060eb54a1af50b9b26eecf47d51",
+				"dweb:/ipfs/QmcPNTHDNcsAaaBwZeXr2YiEGbKk2pR1TT56qK1x7ERXKu"
+			]
+		},
+		"ds-note/note.sol": {
+			"keccak256": "0xb53e3f45f36bd04bf3b98efd874162bae0303e29b1c8cbdd331f48514684496b",
+			"urls": [
+				"bzz-raw://41a607fb6beaa3248e7fbebef435702dfa22efed6312eab76f15c4a3ca8661f2",
+				"dweb:/ipfs/QmbSQxcw2ktZediTT1RQaafbxTDS3tZ9WgW4JtniiwApRu"
+			]
+		},
+		"ds-thing/thing.sol": {
+			"keccak256": "0x19501e76500fa0bcd894e0a27517389bd224cca56920dae785da48ed0a621945",
+			"urls": [
+				"bzz-raw://b6a72dd24778b0b54c56b84154ceac6713589f36a5051c0c3b91259e5b0363d5",
+				"dweb:/ipfs/QmVYkChYACp4zKeKUGJtKvoqqR61AX6kAfjJTNhnvDgy9p"
+			]
+		}
+	},
+	"version": 1
+}
