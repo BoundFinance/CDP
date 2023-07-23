@@ -1,0 +1,61 @@
+{
+	"compiler": {
+		"version": "0.4.26+commit.4563c3fc"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "authority",
+						"type": "address"
+					}
+				],
+				"name": "LogSetAuthority",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "LogSetOwner",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ds-value/value.sol": "DSAuthEvents"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ds-value/value.sol": {
+			"keccak256": "0x5a878c09a73522cc5b6e2fd57cc2a0a8651e7ae88081ecd589cb209b33996ebc",
+			"urls": [
+				"bzzr://ae15517204ee15afadd765620b15c890e234218ceccf63a2953547953852fed9"
+			]
+		}
+	},
+	"version": 1
+}

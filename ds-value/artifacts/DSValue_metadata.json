@@ -1,0 +1,247 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": true,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes4",
+						"name": "sig",
+						"type": "bytes4"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "guy",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "foo",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "bar",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "wad",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "fax",
+						"type": "bytes"
+					}
+				],
+				"name": "LogNote",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "authority",
+						"type": "address"
+					}
+				],
+				"name": "LogSetAuthority",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "LogSetOwner",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "authority",
+				"outputs": [
+					{
+						"internalType": "contract DSAuthority",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "peek",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "wut",
+						"type": "bytes32"
+					}
+				],
+				"name": "poke",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "read",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract DSAuthority",
+						"name": "authority_",
+						"type": "address"
+					}
+				],
+				"name": "setAuthority",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner_",
+						"type": "address"
+					}
+				],
+				"name": "setOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "void",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ds-value/value.sol": "DSValue"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ds-auth/auth.sol": {
+			"keccak256": "0x9dd128620ddc1850d4af0a98738cc3d9a7e7797f5862e9eaed0b77659d5e8303",
+			"license": "GNU-3",
+			"urls": [
+				"bzz-raw://22b41f32e304e97a48ecdc1e85962ebbae293c48558f43720d5018394aa7db5c",
+				"dweb:/ipfs/QmPvHxR2SiKCv7a2DzC8Tg44TBdPXtCXmdRnDxGfXvy6qE"
+			]
+		},
+		"ds-math/math.sol": {
+			"keccak256": "0x8be286cf779d90081f362ad05487073efd6f11e850dfaebb7841493733116463",
+			"urls": [
+				"bzz-raw://6b392a407a80f01dd57046a0f32d0625f4d60060eb54a1af50b9b26eecf47d51",
+				"dweb:/ipfs/QmcPNTHDNcsAaaBwZeXr2YiEGbKk2pR1TT56qK1x7ERXKu"
+			]
+		},
+		"ds-note/note.sol": {
+			"keccak256": "0xb53e3f45f36bd04bf3b98efd874162bae0303e29b1c8cbdd331f48514684496b",
+			"urls": [
+				"bzz-raw://41a607fb6beaa3248e7fbebef435702dfa22efed6312eab76f15c4a3ca8661f2",
+				"dweb:/ipfs/QmbSQxcw2ktZediTT1RQaafbxTDS3tZ9WgW4JtniiwApRu"
+			]
+		},
+		"ds-thing/thing.sol": {
+			"keccak256": "0x19501e76500fa0bcd894e0a27517389bd224cca56920dae785da48ed0a621945",
+			"urls": [
+				"bzz-raw://b6a72dd24778b0b54c56b84154ceac6713589f36a5051c0c3b91259e5b0363d5",
+				"dweb:/ipfs/QmVYkChYACp4zKeKUGJtKvoqqR61AX6kAfjJTNhnvDgy9p"
+			]
+		},
+		"ds-value/value.sol": {
+			"keccak256": "0x3d2273c95d0b4a948b0c4ff25ac0792d2381a67a3eb1c961d35556146d8d3e7f",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://a6c740cc224a7934be2cc47a72e22d52595e3bb5a7a24210c782535a7a97cfc3",
+				"dweb:/ipfs/QmckwbtBaztza1HtZnQmWpN71nbaeZXphUA7pkaGFuvTGa"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,88 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": true,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes4",
+						"name": "sig",
+						"type": "bytes4"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "guy",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "foo",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "bar",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "wad",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "fax",
+						"type": "bytes"
+					}
+				],
+				"name": "LogNote",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ds-note/note.sol": "DSNote"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ds-note/note.sol": {
+			"keccak256": "0xb53e3f45f36bd04bf3b98efd874162bae0303e29b1c8cbdd331f48514684496b",
+			"urls": [
+				"bzz-raw://41a607fb6beaa3248e7fbebef435702dfa22efed6312eab76f15c4a3ca8661f2",
+				"dweb:/ipfs/QmbSQxcw2ktZediTT1RQaafbxTDS3tZ9WgW4JtniiwApRu"
+			]
+		}
+	},
+	"version": 1
+}
