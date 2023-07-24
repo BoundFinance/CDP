@@ -430,7 +430,6 @@ function setInterestRateRatioThreshold(uint256 threshold) public auth {
         require(cups[cup].ink != 0, "ink is 0");
         require(cups[cup].art != 0, "art is 0");
         require(safe(cup), "cup is not safe");
-        require(rmul(ink(cup), tag() / tab(cup)) < interestRateThreshold, "interestRateThreshold condition not met");
         require(block.timestamp >= cups[cup].lastWithdraw + interestWithdrawalCooldown, "You need to wait longer");
 
         uint256 _withdrawableInterest = withdrawableEthInterestOf(cup);
