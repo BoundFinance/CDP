@@ -63,6 +63,7 @@ contract SaiTub is DSThing, SaiTubEvents {
     uint256         _chi;  // Accumulated Tax Rates
     uint256         _rhi;  // Accumulated Tax + Fee Rates
     uint256  public  rum;  // Total normalised debt
+    uint256 public interestDistributedAcross;
 
     uint256 public  cupi;
     mapping (bytes32 => Cup)  public  cups;
@@ -289,8 +290,7 @@ contract SaiTub is DSThing, SaiTubEvents {
         cups[cup].lad = msg.sender;
         emit LogNewCup(msg.sender, cup);
     }
-
- function give(bytes32 cup, address guy) public payable note {
+    function give(bytes32 cup, address guy) public payable note {
         require(msg.sender == cups[cup].lad);
         require(guy != address(0));
         cups[cup].lad = guy;
@@ -306,8 +306,6 @@ contract SaiTub is DSThing, SaiTubEvents {
         require(cups[cup].ink == 0 || cups[cup].ink > 0.005 ether);
 
     }
-
-
     function free(bytes32 cup, uint wad) public payable note {
         require(msg.sender == cups[cup].lad);
             totalCollateral = sub(totalCollateral, wad);  // decrease total collateral
@@ -337,7 +335,6 @@ contract SaiTub is DSThing, SaiTubEvents {
         
 
     }
-
     function wipe(bytes32 cup, uint wad) public payable note {
         require(!off);
         
@@ -353,7 +350,9 @@ contract SaiTub is DSThing, SaiTubEvents {
 if (ok && uint(val) != 0) {
     gov.move(msg.sender, pit, wdiv(owe, uint(val)));
 }
- }
+
+
+    }
 
     function shut(bytes32 cup) public payable note {
         require(!off);
@@ -418,6 +417,8 @@ function setInterestRateRatioThreshold(uint256 threshold) public auth {
         magnifiedInterestPerShare = magnifiedInterestPerShare.add(
             (msg.value).mul(magnitude) / totalCollateral
         );
+
+        interestDistributedAcross += msg.value;
 
         emit InterestDistributed(msg.value);
         ethPool.deposit{value: msg.value}();
