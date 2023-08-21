@@ -21,19 +21,11 @@ contract EthPool {
 
     function deposit() public payable  {}
 
-    function withdraw(uint256 amount) public onlyOwner {
-        require(address(this).balance >= amount);
-        owner.transfer(amount);
-    }
 
     function payInterest(address recipient, uint256 amount) public onlyTub {
         require(address(this).balance >= amount);
         payable(recipient).transfer(amount);
     }
 
-    function transferOwnership(address payable newOwner) public onlyOwner {
-        require(newOwner != address(0));
-        owner = newOwner;
-    }
 }
 
