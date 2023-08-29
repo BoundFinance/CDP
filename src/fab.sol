@@ -24,8 +24,8 @@ contract VoxFab {
 }
 
 contract TubFab {
-    function newTub(DSToken sai, DSToken sin, DSToken skr, ERC20 gem, DSToken gov, DSValue pip, DSValue pep, SaiVox vox, address pit) public returns (SaiTub tub) {
-        tub = new SaiTub(sai, sin, skr, gem, gov, pip, pep, vox, pit);
+    function newTub(DSToken sai, DSToken sin, DSToken skr, ERC20 gem, DSToken gov, DSValue pip, DSValue pep, SaiVox vox, address pit, address _approvedcaller ) public returns (SaiTub tub) {
+        tub = new SaiTub(sai, sin, skr, gem, gov, pip, pep, vox, pit, _approvedcaller);
         tub.setOwner(msg.sender);
     }
 }
@@ -103,7 +103,7 @@ contract DaiFab is DSAuth {
         step += 1;
     }
 
-    function makeVoxTub(ERC20 gem, DSToken gov, DSValue pip, DSValue pep, address pit) public auth {
+    function makeVoxTub(ERC20 gem, DSToken gov, DSValue pip, DSValue pep, address pit, address _approvedcaller) public auth {
         require(step == 1);
         require(address(gem) != address(0x0));
         require(address(gov) != address(0x0));
@@ -111,7 +111,7 @@ contract DaiFab is DSAuth {
         require(address(pep) != address(0x0));
         require(pit != address(0x0));
         vox = voxFab.newVox();
-        tub = tubFab.newTub(sai, sin, skr, gem, gov, pip, pep, vox, pit);
+        tub = tubFab.newTub(sai, sin, skr, gem, gov, pip, pep, vox, pit, _approvedcaller);
         step += 1;
     }
 
@@ -145,7 +145,7 @@ contract DaiFab is DSAuth {
 
         tub.mold("cap", 5000000000000000000000000000000);
         tub.mold("mat", ray(2.0  ether));
-        tub.mold("axe", ray(1.30 ether));
+        tub.mold("axe", ray(2.50 ether));
         tub.mold("fee", ray(1 ether));  // 0.5% / year
         tub.mold("tax", ray(1 ether));
         tub.mold("gap", 1 ether);
@@ -160,7 +160,7 @@ contract DaiFab is DSAuth {
 
         require(tub.cap() == 5000000000000000000000000000000);
         require(tub.mat() == 2000000000000000000000000000);
-        require(tub.axe() == 1300000000000000000000000000);
+        require(tub.axe() == 2500000000000000000000000000);
         require(tub.fee() == 1000000000000000000000000000);
         require(tub.tax() == 1000000000000000000000000000);
         require(tub.gap() == 1000000000000000000);
@@ -233,6 +233,3 @@ contract DaiFab is DSAuth {
     }
 }
 
-//0x082F95e8803456fB9ef31138214415718C249F11
-
-//0xF57cDEeD0bEd79e950D0E0D7567E552877a652e4 DaiFab
