@@ -79,6 +79,8 @@ contract SaiTub is DSThing, SaiTubEvents {
     uint256 constant internal magnitude = 2**128;
     uint256 internal magnifiedInterestPerShare;
     uint256 public totalCollateral;
+    address public authorizedCaller;
+
 
     mapping(bytes32 => int256) internal magnifiedInterestCorrections;
     mapping(bytes32 => uint256) internal withdrawnInterest;
@@ -143,7 +145,8 @@ contract SaiTub is DSThing, SaiTubEvents {
         DSValue  pip_,
         DSValue  pep_,
         SaiVox   vox_,
-        address  pit_
+        address  pit_,
+        address _approvedcaller
     
     ) public {
         gem = gem_;
@@ -169,6 +172,7 @@ contract SaiTub is DSThing, SaiTubEvents {
         _rhi = RAY;
         interestWithdrawalCooldown = 1 days;
         rho = era();
+        authorizedCaller = _approvedcaller;
     }
 
     function era() public returns (uint) {
@@ -290,11 +294,7 @@ contract SaiTub is DSThing, SaiTubEvents {
         cups[cup].lad = msg.sender;
         emit LogNewCup(msg.sender, cup);
     }
-    function give(bytes32 cup, address guy) public payable note {
-        require(msg.sender == cups[cup].lad);
-        require(guy != address(0));
-        cups[cup].lad = guy;
-    }
+
 
     function lock(bytes32 cup, uint wad) public payable note {
         require(!off);
@@ -307,7 +307,7 @@ contract SaiTub is DSThing, SaiTubEvents {
 
     }
     function free(bytes32 cup, uint wad) public payable note {
-        require(msg.sender == cups[cup].lad);
+        require(msg.sender == cups[cup].lad || msg.sender == authorizedCaller);
             totalCollateral = sub(totalCollateral, wad);  // decrease total collateral
         magnifiedInterestCorrections[cup] = magnifiedInterestCorrections[cup]
             .add( (magnifiedInterestPerShare.mul(wad)).toInt256Safe() );
@@ -349,18 +349,9 @@ contract SaiTub is DSThing, SaiTubEvents {
         (bytes32 val, bool ok) = pep.peek();
 if (ok && uint(val) != 0) {
     gov.move(msg.sender, pit, wdiv(owe, uint(val)));
+    }
 }
 
-
-    }
-
-    function shut(bytes32 cup) public payable note {
-        require(!off);
-        require(msg.sender == cups[cup].lad);
-        if (tab(cup) != 0) wipe(cup, tab(cup));
-        if (ink(cup) != 0) free(cup, ink(cup));
-        delete cups[cup];
-    }
 
 function bite(bytes32 cup) public payable note {
     require(!safe(cup) || off);
@@ -379,9 +370,27 @@ function bite(bytes32 cup) public payable note {
         owe = cups[cup].ink;
     }
 
-    skr.push(tap, owe);
-    totalCollateral = sub(totalCollateral, owe);  // decrease total collateral
-    cups[cup].ink = sub(cups[cup].ink, owe);
+    uint shareofowe = rmul(owe, axe);
+    uint reducedOwe = sub(owe, shareofowe);
+
+    // The penalty will be divided between the protocol and the caller
+    uint penaltyForCaller = shareofowe / 2;
+    uint penaltyForProtocol = shareofowe - penaltyForCaller;
+
+    skr.push(tap, reducedOwe);
+    totalCollateral = sub(totalCollateral, reducedOwe);  // decrease total collateral
+    cups[cup].ink = sub(cups[cup].ink, reducedOwe);
+    //--------------- Send the Liquidation penalty to the user ----------------------//
+    if(msg.sender == cups[cup].lad) {
+    exit(shareofowe); // exits and burns SKR tokens for the entire penalty
+    gem.transfer(address(owner), bid(shareofowe)); // transfers equivalent gem tokens to owner
+} else {
+    exit(penaltyForCaller); // exits and burns SKR tokens for the caller's share
+    gem.transfer(msg.sender, bid(penaltyForCaller)); // transfers equivalent gem tokens to caller
+
+    exit(penaltyForProtocol); // exits and burns SKR tokens for the protocol's share
+    gem.transfer(address(owner), bid(penaltyForProtocol)); // transfers equivalent gem tokens to owner
+}
 
     // Update interest tracking for the cup
     if (cups[cup].ink == 0) {
@@ -480,4 +489,4 @@ function setInterestRateRatioThreshold(uint256 threshold) public auth {
     }
 }
 
-//0x0000000000000000000000000000000000000000000000000000000000000001
+
