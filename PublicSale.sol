@@ -1,13 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+
 interface IERC20Token {
     function balanceOf(address owner) external returns (uint256);
     function transfer(address to, uint256 amount) external returns (bool);
     function decimals() external returns (uint8);
 }
 
-contract TokenSale {
+contract TokenSale is ReentrancyGuard {
     IERC20Token public tokenContract;  // the token being sold
     uint256 public price;              // the price, in wei, per token
     address public owner;
@@ -21,14 +24,6 @@ contract TokenSale {
         _;
     }
 
-    bool private reentrancyGuard = false;
-
-    modifier nonReentrant() {
-        require(!reentrancyGuard, "Reentrant call");
-        reentrancyGuard = true;
-        _;
-        reentrancyGuard = false;
-    }
 
     constructor(IERC20Token _tokenContract, uint256 _price) {
         owner = msg.sender;
@@ -36,7 +31,7 @@ contract TokenSale {
         price = _price;
     }
 
-    function buyTokens(uint256 numberOfTokens) public payable  {
+    function buyTokens(uint256 numberOfTokens) public payable nonReentrant {
         require(msg.value == numberOfTokens * price, "Mismatched value sent");
 
         uint256 scaledAmount = numberOfTokens * (10 ** uint256(tokenContract.decimals()));
@@ -50,7 +45,7 @@ contract TokenSale {
         require(tokenContract.transfer(msg.sender, scaledAmount), "Token transfer failed");
     }
 
-    function endSale() public onlyOwner  {
+    function endSale() public onlyOwner nonReentrant {
         // Send unsold tokens to the owner.
         require(tokenContract.transfer(owner, tokenContract.balanceOf(address(this))), "Transfer failed");
 
@@ -58,7 +53,11 @@ contract TokenSale {
         payable(owner).transfer(address(this).balance);
     }
 
-    function transferOwnership(address newOwner) public onlyOwner {
+    receive() external payable {
+    revert("Do not send Ether directly");
+}
+
+    function transferOwnership(address newOwner) public onlyOwner  {
         require(newOwner != address(0), "New owner is the zero address");
         emit OwnershipTransferred(owner, newOwner);
         owner = newOwner;
