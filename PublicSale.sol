@@ -8,6 +8,7 @@ interface IERC20Token {
     function balanceOf(address owner) external returns (uint256);
     function transfer(address to, uint256 amount) external returns (bool);
     function decimals() external returns (uint8);
+    function transferFrom(address user1, address user2, uint256 amount) external returns (bool);
 }
 
 contract TokenSale is ReentrancyGuard {
@@ -17,6 +18,7 @@ contract TokenSale is ReentrancyGuard {
     uint256 public tokensSold;
 
     event Sold(address indexed buyer, uint256 amount);
+    event BoughtBack(address indexed seller, uint256 amount);
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     modifier onlyOwner() {
@@ -43,6 +45,23 @@ contract TokenSale is ReentrancyGuard {
         emit Sold(msg.sender, numberOfTokens);
 
         require(tokenContract.transfer(msg.sender, scaledAmount), "Token transfer failed");
+    }
+
+    function sellTokens(uint256 numberOfTokens) public nonReentrant {
+        
+        uint256 scaledAmount = numberOfTokens * (10 ** uint256(tokenContract.decimals()));
+
+        require(tokenContract.balanceOf(msg.sender) >= scaledAmount, "Insufficient tokens to sell");
+
+        require(address(this).balance >= numberOfTokens * price, "Insufficient ETH in contract");
+
+        tokensSold -= numberOfTokens;
+
+        emit BoughtBack(msg.sender, numberOfTokens);
+
+        require(tokenContract.transferFrom(msg.sender, address(this), scaledAmount), "Token transfer failed");
+
+        payable(msg.sender).transfer(numberOfTokens * price);
     }
 
     function endSale() public onlyOwner nonReentrant {
