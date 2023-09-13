@@ -145,7 +145,7 @@ contract DaiFab is DSAuth {
 
         tub.mold("cap", 5000000000000000000000000000000);
         tub.mold("mat", ray(2.0  ether));
-        tub.mold("axe", ray(2.50 ether));
+        tub.mold("axe", ray(1.20 ether));
         tub.mold("fee", ray(1 ether));  // 0.5% / year
         tub.mold("tax", ray(1 ether));
         tub.mold("gap", 1 ether);
@@ -160,7 +160,7 @@ contract DaiFab is DSAuth {
 
         require(tub.cap() == 5000000000000000000000000000000);
         require(tub.mat() == 2000000000000000000000000000);
-        require(tub.axe() == 2500000000000000000000000000);
+        require(tub.axe() == 1200000000000000000000000000);
         require(tub.fee() == 1000000000000000000000000000);
         require(tub.tax() == 1000000000000000000000000000);
         require(tub.gap() == 1000000000000000000);
