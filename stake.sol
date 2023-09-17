@@ -14,8 +14,9 @@ contract BCKSavingsAccount {
 
   uint256 constant internal magnitude = 2**128;
   uint256 internal magnifiedInterestPerShare;
+  uint256 public currentdistrbutedUSDC;
   mapping(address => int256) internal magnifiedInterestCorrections;
-  mapping(address => uint256) internal withdrawnInterest;
+  mapping(address => uint256) public withdrawnInterest;
 
   mapping(address => uint256) public balances;
   uint256 public totalDeposits;
@@ -71,32 +72,54 @@ function distributeUSDC(uint256 _amount) public {
         );
     }
 
+    currentdistrbutedUSDC = currentdistrbutedUSDC + _amount;
     // Emit an event to inform external observers about the distribution
     emit USDCDistributed(msg.sender, _amount);
+    
 
     // Transfer the USDC from the owner to the contract
     require(usdc.transferFrom(msg.sender, address(this), _amount), "USDC transfer failed");
 }
 
   function withdrawInterest() public {
+    
     uint256 _withdrawableInterest = withdrawableInterestOf(msg.sender);
+    
     if (_withdrawableInterest > 0) {
-            withdrawnInterest[msg.sender] = withdrawnInterest[msg.sender].add(_withdrawableInterest);
+      withdrawnInterest[msg.sender] = withdrawnInterest[msg.sender].add(_withdrawableInterest);
+      uint excessUSDC = usdc.balanceOf(address(this)) - currentdistrbutedUSDC;
+
+      if (excessUSDC > 0) {
+        uint rebaseAmount = excessUSDC * (_withdrawableInterest / currentdistrbutedUSDC);
+        uint _withdrawableInterestprem = _withdrawableInterest + rebaseAmount;
+        currentdistrbutedUSDC = currentdistrbutedUSDC.sub(_withdrawableInterest);
+        require(usdc.transfer(msg.sender, _withdrawableInterestprem), "USDC transfer failed");
+
+        return; 
+      }
+
+      currentdistrbutedUSDC = currentdistrbutedUSDC - (_withdrawableInterest);
       require(usdc.transfer(msg.sender, _withdrawableInterest), "USDC transfer failed");
+      
     }
   }
 
-  function interestOf(address _owner) public view returns(uint256) {
-    return accumulativeInterestOf(_owner).sub(withdrawnInterest[_owner]);
-  }
-
   function withdrawableInterestOf(address _owner) public view returns(uint256) {
-    return accumulativeInterestOf(_owner).sub(withdrawnInterest[_owner]);
-  }
+        return accumulativeInterestOf(_owner).sub(withdrawnInterest[_owner]);
+    }
+
+    function excessUSDCTest () public view returns(uint) {
+      require(currentdistrbutedUSDC > 0, "THERE IS NO USDC INTEREST LEFT TO WITHDRAW");
+        uint256 _withdrawableInterest = withdrawableInterestOf(msg.sender);
+        uint excessUSDC = usdc.balanceOf(address(this)) - currentdistrbutedUSDC;
+        uint rebaseAmount = excessUSDC * (_withdrawableInterest / currentdistrbutedUSDC);
+        uint _withdrawableInterestprem = _withdrawableInterest + rebaseAmount;
+        return _withdrawableInterestprem;
+    } 
+
 
   function accumulativeInterestOf(address _owner) public view returns(uint256) {
     return magnifiedInterestPerShare.mul(balances[_owner]).toInt256Safe()
       .add(magnifiedInterestCorrections[_owner]).toUint256Safe() / magnitude;
   }
 }
-
